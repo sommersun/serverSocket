@@ -31,13 +31,12 @@ int main(int argc, char* argv[])
 	//(3)server IP
 	SOCKADDR_IN addrSrv;
 	addrSrv.sin_family = AF_INET;
-	addrSrv.sin_addr.s_addr = htonl(INADDR_ANY);//Auto IP, byte sequence change
-	addrSrv.sin_port = htons(DEFAULT_PORT);
+	addrSrv.sin_addr.s_addr = htonl(INADDR_ANY);//INADDR_ANY本机的所有IP
+	addrSrv.sin_port = htons(DEFAULT_PORT);//将整型变量从主机字节顺序转变成网络字节顺序
 	//(4)bind
 	err = bind(sockSrv, (SOCKADDR*)&addrSrv, sizeof(SOCKADDR));
 	if (err != 0)
 	{
-
 		cout << "bind()fail" << WSAGetLastError() << endl;
 		return -3;
 	}
