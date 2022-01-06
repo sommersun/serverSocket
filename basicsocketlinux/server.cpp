@@ -11,7 +11,7 @@
 #include <thread>
 #include <iostream>
 #define PORT 7000
-#define QUEUE 20//连接请求队列
+#define QUEUE 20
 int conn;
 void thread_task()
 {
