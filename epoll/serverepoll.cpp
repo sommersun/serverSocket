@@ -125,7 +125,6 @@ int main(int argc, char* argv[])
             else if(events[i].events&EPOLLIN)//如果是已经连接的用户，并且收到数据，那么进行读入。
 
             {
-                cout << "EPOLLIN" << endl;
                 if ( (sockfd = events[i].data.fd) < 0)
                     continue;
                 memset(line,0,sizeof(line));
@@ -152,21 +151,18 @@ int main(int argc, char* argv[])
 
             }
             else if(events[i].events&EPOLLOUT) // 如果有数据发送
-
-            {   
-                sockfd = events[i].data.fd;
+            {  
                 char sendbuf[1024];
                 fgets(sendbuf,sizeof(sendbuf),stdin);
+                sockfd = events[i].data.fd;
                 write(sockfd, sendbuff, sizeof(sendbuf));
                 //设置用于读操作的文件描述符
-
                 ev.data.fd=sockfd;
                 //设置用于注测的读操作事件
-
                 ev.events=EPOLLIN|EPOLLET;
                 //修改sockfd上要处理的事件为EPOLIN
-
                 epoll_ctl(epfd,EPOLL_CTL_MOD,sockfd,&ev);
+                memset(sendbuf,0,sizeof(sendbuf));
             }
         }
     }
